@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-r from-blue-100 to-purple-200">
+  <nav class="bg-white px-6 py-4 flex justify-between items-center ">
+    <div class="profile flex items-center gap-3">
+        <div class="profile-pic w-12 h-12 rounded-full bg-blue-200 text-blue-700  text-sm flex justify-center items-center shadow font-bold">
+            <span>PP</span>
+        </div>
+        <span class="font-semibold text-gray-700 hidden md:block"><%= user.name.toUpperCase() %></span>
+    </div>
+    <div class="links flex items-center gap-[1rem] sm:gap-4 md:gap-6">
+        <a href="#" class="text-blue-600 font-medium hover:underline hover:text-blue-800 transition tracking-tighter">Mid Exam</a>
+        <a href="#" class="text-blue-600 font-medium hover:underline hover:text-blue-800 transition tracking-tighter">End Exam </a>
+        <a href="/chatRoute" class="text-blue-600 font-medium hover:text-blue-800 transition tracking-tighter"> Chat <span class="text-purple-500 text-1xl">&#10024;</span></a>
+    </div>
+  </nav>
+    <main class="flex flex-col items-center justify-center mt-16">
+         
+    </main>
+  <footer class="mt-10 text-center text-gray-500">
+        &copy; <%= new Date().getFullYear() %> Your App Name
+    </footer>
+
+</body>
+</html>
