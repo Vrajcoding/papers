@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= paper.types.toUpperCase() %> Term Paper</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .pdf-container {
+            height: 80vh;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <div class="bg-white rounded-lg shadow-md p-6 mb-4">
+            <h1 class="text-2xl font-bold mb-4"><%= paper.types.toUpperCase() %> Term Paper</h1>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div>
+                    <p class="font-semibold">Subject Code:</p>
+                    <p><%= paper.subjectcode %></p>
+                </div>
+                <div>
+                    <p class="font-semibold">Department:</p>
+                    <p><%= paper.department %></p>
+                </div>
+                <div>
+                    <p class="font-semibold">Semester:</p>
+                    <p><%= paper.semester %></p>
+                </div>
+                <div>
+                    <p class="font-semibold">Year:</p>
+                    <p><%= paper.year %></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-4 pdf-container">
+            <embed 
+                src="<%= paper.fileUrl %>" 
+                type="application/pdf" 
+                width="100%" 
+                height="100%"
+            >
+        </div>
+
+        <div class="mt-4 flex space-x-4">
+            <a href="/exam/<%= paper.types %>" 
+               class="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700">
+                Back to List
+            </a>
+
+            <a href="/exam/download/<%= paper._id %>" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Download</a >
+            <% if (isAdmin) { %>
+                <a href="/admin/paper/delete/<%= paper._id %>" 
+                   class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
+                    Delete
+                </a>
+            <% } %>
+        </div>
+    </div>
+</body>
+</html>

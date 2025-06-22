@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.connect("mongodb://127.0.0.1:27017/papercollection");
+
 
 const userSchema = mongoose.Schema({
     name : {
@@ -7,12 +7,19 @@ const userSchema = mongoose.Schema({
         minlength : 3,
         trim : true
     },
-
     email: {
         type : String,
         unique : true
     },
     password : String,
+   isAdmin : {
+    type : Boolean,
+    default : false
+   },
+   createdAt : {
+    type : Date,
+    default : Date.now
+   }
 });
 
 module.exports = mongoose.model("user",userSchema);

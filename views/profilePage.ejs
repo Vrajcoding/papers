@@ -1,31 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Profile</title>
-    <link href="/css/style.css" rel="stylesheet">
-</head>
-<body class="bg-gradient-to-r from-blue-100 to-purple-200">
-  <nav class="bg-white px-6 py-4 flex justify-between items-center ">
-    <div class="profile flex items-center gap-3">
-        <div class="profile-pic w-12 h-12 rounded-full bg-blue-200 text-blue-700  text-sm flex justify-center items-center shadow font-bold">
-            <span>PP</span>
-        </div>
-        <span class="font-semibold text-gray-700 hidden md:block"><%= user.name.toUpperCase() %></span>
-    </div>
-    <div class="links flex items-center gap-[1rem] sm:gap-4 md:gap-6">
-        <a href="#" class="text-blue-600 font-medium hover:underline hover:text-blue-800 transition tracking-tighter">Mid Exam</a>
-        <a href="#" class="text-blue-600 font-medium hover:underline hover:text-blue-800 transition tracking-tighter">End Exam </a>
-        <a href="/chatRoute" class="text-blue-600 font-medium hover:text-blue-800 transition tracking-tighter"> Chat <span class="text-purple-500 text-1xl">&#10024;</span></a>
-    </div>
-  </nav>
-    <main class="flex flex-col items-center justify-center mt-16">
-         
-    </main>
-  <footer class="mt-10 text-center text-gray-500">
-        &copy; <%= new Date().getFullYear() %> Your App Name
-    </footer>
+    <link href="/css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/cursor.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+      .overlay{
+        width: fit-content;
+        backdrop-filter: blur(10px);
+         background-color: #ffffff64;
+      }
 
-</body>
+    #cross {
+      margin-bottom: 5rem;
+    }
+      #cross i {
+    position: absolute;
+    top: 5%;
+    left: 10%;
+    background-color: white;
+    border-radius: 50%;
+    padding: 5px;
+    font-weight: 800;
+    font-size: 20px; 
+    color: black;
+    cursor: pointer;
+      }
+    </style>
+  </head>
+  <body class="bg-gradient-to-r from-blue-100 to-purple-200">
+    <div id="cursor" class="hidden md:block"></div>
+    <section>
+    <div class="overlay h-full absolute top-0 -left-full p-10">
+      <div id="cross">
+        <i class="fa-solid fa-xmark"></i>
+      </div>
+      <div id="nav">
+        <h2 class="font-bold mb-7"><%= user.name.toUpperCase() %></h2>
+        <h2 class="font-bold"><%= user.email %></h2>
+      </div>
+    </div>
+
+      <nav class="bg-white px-6 py-4 flex justify-between items-center">
+      <div class="profile flex items-center gap-3">
+        <div class="profile-pic w-12 h-12 rounded-full bg-blue-200 text-blue-700 text-sm flex justify-center items-center shadow font-bold cursor-pointer" >
+          <i class="fa-solid fa-bars"></i>
+        </div>
+      </div>
+      <div class="links flex items-center gap-[1rem] sm:gap-4 md:gap-6">
+        <a
+          href="/chatRoute"
+          class="text-blue-600 font-medium hover:text-blue-800 transition tracking-tighter"
+        >
+          Chat <span class="text-purple-500 text-1xl">&#10024;</span></a
+        >
+      </div>
+    </nav>
+
+    </section>
+    <main class="bg-gray-300">
+      <div class="flex justify-end items-center p-2 gap-4">
+        <button
+        
+          id="mid-exam"
+          class="exam-papers active px-4 py-2 rounded-full font-semibold shadow transition bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600"
+          data-type = "mid"
+        >
+          Mid Exam
+        </button>
+        <button
+          id="end-exam"
+          class="exam-papers px-4 py-2 rounded-full font-semibold shadow border border-blue-200 transition bg-white text-blue-700 hover:bg-blue-50"
+           data-type = "end"
+        >
+          End Exam
+        </button>
+      </div>
+
+      <section class="papers-container"></section>
+    </main>
+    <footer class="mt-10 text-center text-gray-500">
+      &copy; <%= new Date().getFullYear() %> 
+    </footer>
+    <script src="/javascript/select.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" integrity="sha512-NcZdtrT77bJr4STcmsGAESr06BYGE8woZdSdEgqnpyqac7sugNO+Tr4bGwGF3MsnEkGKhU2KL2xh6Ec+BqsaHA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="/javascript/cursor.js"></script>
+  </body>
 </html>

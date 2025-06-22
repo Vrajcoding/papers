@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>File Upload</title>
+  <link href="/css/style.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-blue-100 to-purple-200 min-h-screen flex items-center justify-center">
+
+  <div class="fixed top-0 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md px-4">
+    <% if (error && error.length > 0) { %>
+      <div class="bg-red-600 text-white p-2 rounded mb-2 shadow text-center font-semibold">
+        <%= error %>
+      </div>
+    <% } %>
+    <% if (success && success.length > 0) { %>
+      <div class="bg-green-100 border border-green-400 text-green-800 px-4 py-3 rounded mb-2 shadow text-center font-semibold">
+        <%= success %>
+      </div>
+    <% } %>
+  </div>
+  <div>
+    <nav>
+      <a href="/profile">Go to profile</a>
+    </nav>
+  </div>
+
+  <div class="w-full flex items-center justify-center min-h-screen">
+    <div class="bg-white rounded-2xl shadow-2xl px-8 py-10 w-full max-w-lg border border-blue-100">
+      <h2 class="text-3xl font-extrabold text-center mb-8 bg-gradient-to-r from-blue-500 via-purple-500 to-blue-600 bg-clip-text text-transparent drop-shadow">
+        📁 File Upload
+      </h2>
+      <form action="/exam/upload" method="post" enctype="multipart/form-data" class="space-y-6">
+        <div>
+          <label for="sem" class="block text-gray-700 font-medium mb-1">Semester</label>
+          <input
+            type="number"
+            id="sem"
+            name="semester"
+            placeholder="Semester"
+            class="block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+            required
+          />
+        </div>
+
+        <div>
+          <label for="Year" class="block text-gray-700 font-medium mb-1">Year</label>
+          <input
+            type="number"
+            id="Year"
+            name="year"
+            placeholder="Year"
+            class="block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+            required
+          />
+        </div>
+
+        <div>
+          <label for="subjectcode" class="block text-gray-700 font-medium mb-1">Subject Code</label>
+          <input
+            type="number"
+            id="subjectcode"
+            name="subjectcode"
+            placeholder="Subject Code"
+            class="block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+            required
+          />
+        </div>
+
+        <div>
+          <label for="department" class="block text-gray-700 font-medium mb-1">Department</label>
+          <input
+            type="text"
+            id="department"
+            name="department"
+            placeholder="Department"
+            class="block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+            required
+          />
+        </div>
+
+        <div>
+          <label for="subject" class="block text-gray-700 font-medium mb-1">Subject</label>
+          <input
+            type="text"
+            id="subject"
+            name="subject"
+            placeholder="Subject"
+            class="block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+            required
+          />
+        </div>
+       
+
+        <div>
+          <select name="current" id="current" class="block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition">
+            <option value="">Select current</option>
+            <option value="winter">winter</option>
+            <option value="summer">summer</option>
+          </select>
+        </div>
+
+        <div>
+          <select name="examtype" id="examtype" class="block w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition">
+            <option value="">Select ExamType</option>
+            <option value="mid">Mid</option>
+            <option value="end">End</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="fileUrl" class="block text-gray-700 font-medium mb-1">File Upload</label>
+          <input
+            type="file"
+            id="fileUrl"
+            name="fileUrl"
+            class="block w-full px-4 py-2 border border-gray-300 rounded-lg bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+            required
+          />
+        </div>
+
+        <button
+          type="submit"
+          class="w-full bg-gradient-to-r from-blue-500 via-purple-500 to-blue-600 text-white font-semibold py-2 rounded-lg shadow hover:from-blue-600 hover:via-purple-600 hover:to-blue-800 transition"
+        >
+          Upload
+        </button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

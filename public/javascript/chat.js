@@ -18,14 +18,14 @@ document.addEventListener("DOMContentLoaded", async function() {
             
             const userMessage = userInput.value;
             const msgdiv = document.createElement("div");
-            msgdiv.className = "mb-2 p-2 bg-blue-100 rounded text-gray-800 self-end max-w-xs";
+            msgdiv.className = "mb-2 p-2 bg-blue-100 rounded text-gray-800 self-start max-w-xs mr-auto";
             msgdiv.textContent = userMessage;
             responseDiv.append(msgdiv);
 
             userInput.value = "";
 
             const serverMsgDiv = document.createElement("div");
-            serverMsgDiv.className = "mb-2 p-2 bg-zinc-200 rounded text-gray-800 self-start max-w-xs mr-auto";
+            serverMsgDiv.className = "mb-2 p-2 bg-zinc-200 rounded text-gray-800 self-end w-[98%] ml-auto text-left";
             serverMsgDiv.innerHTML = "loading...";
             responseDiv.append(serverMsgDiv);
             

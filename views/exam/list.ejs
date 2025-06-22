@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title><%= pageTitle %></title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+  <div class="container mx-auto px-4 py-8">
+    <% if (isAdmin) { %>
+      <div class="mb-4">
+        <a href="/admin/upload" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Upload Paper</a>
+      </div>
+    <% } %>
+
+    <form method="get" action="/exam/<%= examType %>" class="flex flex-wrap gap-4 mb-6">
+      <select name="current" class="p-2 border rounded">
+        <option value="">All Seasons</option>
+        <% seasons.forEach(season => { %>
+          <option value="<%= season %>" <%= currents.current === season ? 'selected' : '' %>><%= season %></option>
+        <% }) %>
+      </select>
+
+       <select name="semester" class="p-2 border rounded">
+        <option value="">All semester</option>
+        <% semesters.forEach(sem => { %>
+          <option value="<%= sem %>" <%= currents.semester == sem ? 'selected' : '' %>><%= sem %></option>
+        <% }) %>
+      </select>
+      <select name="year" class="p-2 border rounded">
+        <option value="">All Years</option>
+        <% years.forEach(y => { %>
+          <option value="<%= y %>" <%= currents.year == y ? 'selected' : '' %>><%= y %></option>
+        <% }) %>
+      </select>
+      <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Filter</button>
+    </form>
+
+   
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <% if (exams.length === 0) { %>
+        <div class="col-span-full text-center text-gray-500 py-8">
+          No papers found for the selected filters.
+        </div>
+      <% } %>
+      <% exams.forEach(paper => { %>
+        <div class="bg-white shadow-md rounded-xl p-4 text-center border">
+          <h2 class="text-xl font-bold mb-2"><%= paper.subject %></h2>
+          <h3 class="text-md font-semibold mb-2">Sem: <%= paper.semester %></h3>
+          <p class="text-gray-600 mb-4"><%= paper.current %> - <%= paper.year %></p>
+          <div class="flex justify-around">
+            <a href="/exam/view/<%= paper._id %>" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">View</a>
+            <a href="/exam/download/<%= paper._id %>" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Download</a>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</body>
+</html>
