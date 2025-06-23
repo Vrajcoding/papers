@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", async function() {
             responseDiv.append(serverMsgDiv);
             
             try {
-                const apiResponse = await fetch('http://localhost:3000/chatRoute/chat', {
+                const apiResponse = await fetch('/chatRoute/chat', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
