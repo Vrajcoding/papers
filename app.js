@@ -7,9 +7,9 @@ const connectedDb = require("./config/db");
 const cookieParser = require("cookie-parser");
 const helmet = require('helmet');
 const app = express();
-console.log("connected");
+
 connectedDb();
-console.log("Not worked");
+
 
 app.set("view engine", "ejs");
 app.use(helmet());
@@ -17,6 +17,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(session({
     secret:process.env.SESSION_SECRET,
     saveUninitialized: false,

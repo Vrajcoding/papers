@@ -117,18 +117,18 @@ exports.downloadPDF = async (req, res) => {
     try {
         const paperId = req.params.id;
 
-        // Validate ID
+        
         if (!paperId || !mongoose.Types.ObjectId.isValid(paperId)) {
             return res.status(400).send('Invalid document ID');
         }
 
-        // Find paper
+
         const paper = await exam.findById(paperId).lean();
         if (!paper) {
             return res.status(404).send('Document not found');
         }
 
-        const filePath = path.join(__dirname, '../public', paper.fileUrl);
+        const filePath = path.join(__dirname, '..', paper.fileUrl);
 
         if (!fs.existsSync(filePath)) {
             return res.status(404).send('File not found on server');
