@@ -38,7 +38,6 @@ app.use("/profile", require("./routes/profileRoute"));
 app.use("/admin", require("./routes/adminRoute"));
 app.use("/exam", require("./routes/exam"));
 app.use("/chatroute", require("./routes/chatRoute"));
-
 app.get("/", (req, res) => {
   res.redirect('/auth/login');
 })
