@@ -4,11 +4,11 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-  "dev:css": "tailwindcss -i ./public/css/tailwind.css -o ./public/css/style.css --watch",
-  "dev:server": "cross-env DEBUG=app:* nodemon app.js",
-  "dev": "concurrently \"npm run dev:css\" \"npm run dev:server\"",
-  "start": "node app.js"
-},
+    "dev:css": "tailwindcss -i ./public/css/tailwind.css -o ./public/css/style.css --watch",
+    "dev:server": "cross-env DEBUG=app:* nodemon app.js",
+    "dev": "concurrently \"npm run dev:css\" \"npm run dev:server\"",
+    "start": "node app.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -26,6 +26,7 @@
     "bcrypt": "^6.0.0",
     "config": "^4.0.0",
     "connect-flash": "^0.1.1",
+    "connect-mongo": "^5.1.0",
     "cookie-parser": "^1.4.7",
     "debug": "^4.4.1",
     "dotenv": "^16.5.0",

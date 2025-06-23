@@ -47,20 +47,19 @@ exports.getExamType = async (req, res) => {
             return res.status(404).send('Exam type not found');
         }
 
-        // Get filters from query
         const { current, year, semester } = req.query;
         let filter = { types: examType };
         if (current) filter.current = current;
         if (year) filter.year = year;
         if (semester) filter.semester = semester;
 
-        // Get all possible filter values for dropdowns
+      
         const allExams = await exam.find({ types: examType });
         const seasons = [...new Set(allExams.map(e => e.current))].filter(Boolean);
         const years = [...new Set(allExams.map(e => e.year))].filter(Boolean);
         const semesters = [...new Set(allExams.map(e => e.semester))].filter(Boolean);
 
-        // Get filtered exams
+        
         const exams = await exam.find(filter)
             .sort({ createdAt: -1 })
             .populate('uploadedBY', 'name email');
@@ -107,7 +106,7 @@ exports.viewPDF = async (req, res) => {
         console.error('View error:', err);
         res.status(500).render('error', {
             message: 'Failed to view paper',
-            error: process.env.NODE_ENV === 'development' ? err : null,
+            error: process.env.NODE_ENV === 'production' ? err : null,
             isAuthenticated: !!req.user
         });
     }

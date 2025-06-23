@@ -6,6 +6,7 @@ const flash = require('connect-flash');
 const connectedDb = require("./config/db");
 const cookieParser = require("cookie-parser");
 const helmet = require('helmet');
+const Mongostore = require('connect-mongo'); 
 const app = express();
 
 connectedDb();
@@ -22,6 +23,11 @@ app.use(session({
     secret:process.env.SESSION_SECRET,
     saveUninitialized: false,
     resave: false,
+    store: Mongostore.create({
+    mongoUrl: process.env.MONGODB_URL,  
+    collectionName: 'sessions', 
+    ttl: 60 * 60 * 24,
+    }),
     cookie : {
       secure : process.env.NODE_ENV === "production",
       maxAge : 1000 * 60 * 60 * 24
