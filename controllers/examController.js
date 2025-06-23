@@ -1,42 +1,82 @@
 const exam = require("../models/exampaper-model");
 const mongoose = require("mongoose");
+const { GridFSBucket } = require("mongodb");
 const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
-const { subscribe } = require("diagnostics_channel");
-const { types } = require("joi");
 
 exports.uploadPaper = async (req, res) => {
-    try {
-        const { semester, year, subjectcode, department, examtype ,subject,current } = req.body;
-        
-        if (!req.file) {
-            throw new Error('No file uploaded');
-        }
-        const fileUrl = '/uploads/' + path.basename(req.file.path);
+  try {
+    const { semester, year, subjectcode, department, examtype, subject, current } = req.body;
 
-        const paper = await exam.create({
-            semester,
-            year,
-            subjectcode,
-            department,
-            types: examtype,
-            subject,
-            current,
-            fileUrl, 
-            uploadedBY: req.user.id
-        });
-
-        req.flash("success", "Uploaded successfully");
-        res.redirect("/admin/upload");
-    } catch(err) {
-        if (req.file && req.file.path) {
-            fs.unlink(req.file.path, () => {});
-        }
-        console.error('Upload error:', err);
-        req.flash('error', err.message || 'Failed to upload exam paper');
-        res.redirect('/admin/upload');
+    if (!req.file) {
+      throw new Error('No file uploaded');
     }
+
+    const bucket = new GridFSBucket(mongoose.connection.db, {
+      bucketName: 'papers',
+    });
+
+    const filename = `${Date.now()}-${req.file.originalname}`;
+    const uploadStream = bucket.openUploadStream(filename, {
+      contentType: req.file.mimetype,
+    });
+
+    uploadStream.end(req.file.buffer);
+
+    uploadStream.on('finish', async () => {
+      const fileUrl = `/exam/download-by-name/${filename}`;
+
+      const paper = await exam.create({
+        semester,
+        year,
+        subjectcode,
+        department,
+        types: examtype,
+        subject,
+        current,
+        fileUrl,
+        uploadedBY: req.user.id
+      });
+
+      req.flash("success", "Uploaded successfully");
+      res.redirect("/admin/upload");
+    });
+
+    uploadStream.on('error', (err) => {
+      console.error("Upload Stream Error:", err);
+      req.flash('error', 'Failed to upload paper');
+      res.redirect("/admin/upload");
+    });
+
+  } catch (err) {
+    console.error("Upload Error:", err);
+    req.flash('error', err.message || 'Failed to upload exam paper');
+    res.redirect("/admin/upload");
+  }
+};
+
+exports.downloadByName = async (req, res) => {
+  try {
+    const filename = req.params.name;
+
+    const bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
+      bucketName: 'papers',
+    });
+
+    const downloadStream = bucket.openDownloadStreamByName(filename);
+
+    downloadStream.on('error', () => {
+      res.status(404).send('File not found');
+    });
+
+    res.set('Content-Type', 'application/pdf');
+    downloadStream.pipe(res);
+
+  } catch (err) {
+    console.error("Download Error:", err);
+    res.status(500).send('Server error');
+  }
 };
 
 exports.getExamType = async (req, res) => {
