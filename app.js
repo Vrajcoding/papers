@@ -7,8 +7,9 @@ const connectedDb = require("./config/db");
 const cookieParser = require("cookie-parser");
 const helmet = require('helmet');
 const app = express();
-
+console.log("connected");
 connectedDb();
+console.log("Not worked");
 
 app.set("view engine", "ejs");
 app.use(helmet());
