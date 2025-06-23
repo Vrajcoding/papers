@@ -6,7 +6,7 @@ const upload = require("../controllers/upload");
 
 route.get("/:type", authenticate, examController.getExamType);
 route.post("/upload", authenticate, upload.single("fileUrl") ,examController.uploadPaper);
-route.get("/view/:id", authenticate, examController.viewPDF);
+route.get("/stream/:id", examController.streamPDF);
 route.get("/download/:id", authenticate, examController.downloadPDF);
 route.get("/download-by-name/:name", examController.downloadByName);
 

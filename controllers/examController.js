@@ -122,72 +122,53 @@ exports.getExamType = async (req, res) => {
     }
 };
 
-exports.viewPDF = async (req, res) => {
-    try {
-        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-            return res.status(400).render('error', {
-                message: 'Invalid paper ID format',
-                isAuthenticated: !!req.user
-            });
-        }
+exports.streamPDF = async (req, res) => {
+  try {
+    const paper = await exam.findById(req.params.id);
+    if (!paper) return res.status(404).send("Paper not found");
 
+    const filename = paper.fileUrl.split("/").pop();
+    const bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
+      bucketName: 'papers',
+    });
 
-        const paper = await exam.findById(req.params.id).populate("uploadedBY", "name email");
-        if(!paper){
-            throw new Error('Paper not found');
-        }
+    const stream = bucket.openDownloadStreamByName(filename);
+    stream.on("error", () => res.status(404).send("File not found"));
 
-        res.render("exam/viewer", {
-            paper,
-            isAuthenticated : !!req.user,
-            isAdmin : req.user?.isAdmin
-        })
-    } catch(err) {
-        console.error('View error:', err);
-        res.status(500).render('error', {
-            message: 'Failed to view paper',
-            error: process.env.NODE_ENV === 'production' ? err : null,
-            isAuthenticated: !!req.user
-        });
-    }
+    res.set("Content-Type", "application/pdf");
+    res.set("Content-Disposition", "inline");
+    stream.pipe(res);
+  } catch (err) {
+    console.error("Stream Error:", err);
+    res.status(500).send("Server error");
+  }
 };
 
 exports.downloadPDF = async (req, res) => {
-    try {
-        const paperId = req.params.id;
+  try {
+    const paper = await exam.findById(req.params.id);
+    if (!paper) return res.status(404).send("Paper not found");
 
-        
-        if (!paperId || !mongoose.Types.ObjectId.isValid(paperId)) {
-            return res.status(400).send('Invalid document ID');
-        }
+    const filename = paper.fileUrl.split("/").pop(); 
+    const bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
+      bucketName: 'papers',
+    });
 
+    const downloadStream = bucket.openDownloadStreamByName(filename);
+    const customName = `${paper.subject}-${paper.types}-${paper.year}-${paper.current}.pdf`;
 
-        const paper = await exam.findById(paperId).lean();
-        if (!paper) {
-            return res.status(404).send('Document not found');
-        }
+    res.set('Content-Type', 'application/pdf');
+    res.set('Content-Disposition', `attachment; filename="${customName}"`);
+    downloadStream.pipe(res);
 
-        const filePath = path.join(__dirname, '..', paper.fileUrl);
+    downloadStream.on('error', () => {
+      res.status(404).send("File not found");
+    });
 
-        if (!fs.existsSync(filePath)) {
-            return res.status(404).send('File not found on server');
-        }
-
-
-        const filename = `${paper.subject}-${paper.current}-${paper.year}${path.extname(filePath)}`;
-
-        res.download(filePath, filename, (err) => {
-            if (err) {
-                console.error('Download error:', err);
-                if (!res.headersSent) {
-                    res.status(500).send('Download failed');
-                }
-            }
-        });
-
-    } catch (err) {
-        console.error('Unhandled download error:', err);
-        res.status(500).send('Server error');
-    }
+  } catch (err) {
+    console.error("Download Error:", err);
+    res.status(500).send("Server error");
+  }
 };
+
 
