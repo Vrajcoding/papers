@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Profile</title>
-    <link rel="icon" href="/icon.jpg">
+    <link rel="icon" href="/images/icon.jpg">
     <link href="/css/style.css" rel="stylesheet" />
     <link rel="stylesheet" href="/css/cursor.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -83,18 +83,23 @@
 
       <section class="papers-container"></section>
     </main>
-    <footer class="mt-10 text-center text-gray-500">
-      <div class="footer-part">
-        <div class="icon">
-          <img src="/linkedin.png" alt="linkedin">
-          <img src="/github-mark.png" alt="github">
-          <img src="s/instagram.png" alt="insta">
-        </div>
-        <div class="copy">
-           &copy; <%= new Date().getFullYear() %> 
-          </div>
-      </div>
-    </footer>
+    <footer class="bg-white border-t border-gray-200 py-6">
+  <div class="max-w-5xl mx-auto px-4 text-center">
+    <div class="flex justify-center items-center gap-6 mb-4">
+      <a href="www.linkedin.com/in/vrajgajjar37" target="_blank" class="hover:scale-110 transition-transform">
+        <img src="/images/linkedin.png" alt="linkedin" class="h-8 md:h-10">
+      </a>
+      <a href="https://github.com/Vrajcoding" target="_blank" class="hover:scale-110 transition-transform">
+        <img src="/images/github-mark.png" alt="github" class="h-8 md:h-10">
+      </a>
+      <a href="https://instagram.com" target="_blank" class="hover:scale-110 transition-transform">
+        <img src="/images/instagram.png" alt="instagram" class="h-8 md:h-12">
+      </a>
+    </div>
+    <p class="text-sm text-gray-500">&copy; <%= new Date().getFullYear() %> All rights reserved.</p>
+  </div>
+</footer>
+
     <script src="/javascript/select.js"></script>
     <script src="/javascript/gsap.min.js"></script>
     <script src="/javascript/cursor.js"></script>
