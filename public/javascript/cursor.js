@@ -1,5 +1,5 @@
 const cursor = document.querySelector("#cursor");
-const userName = document.querySelector("#name");
+const h1 = document.querySelector(".heading");
 const menu = document.querySelector(".profile-pic")
 const cross = document.querySelector("#cross");
 const tl = gsap.timeline();
@@ -11,6 +11,13 @@ window.addEventListener("mousemove",function(e){
         duration:0.3
     })
 })
+
+ gsap.from(h1,{
+    y:200,
+    opacity:0,
+    duration:1,
+    ease: "power1.out"
+ })
 
  tl.to(".overlay", {
     left: 0,
@@ -37,6 +44,8 @@ window.addEventListener("mousemove",function(e){
  cross.addEventListener("click",function(){
     tl.reverse();
  })
+
+
 
 
 
