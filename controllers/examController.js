@@ -96,8 +96,8 @@ exports.getExamType = async (req, res) => {
       
         const allExams = await exam.find({ types: examType });
         const seasons = [...new Set(allExams.map(e => e.current))].filter(Boolean);
-        const years = [...new Set(allExams.map(e => e.year))].filter(Boolean);
-        const semesters = [...new Set(allExams.map(e => e.semester))].filter(Boolean);
+        const years = [...new Set(allExams.map(e => e.year))].filter(Boolean).sort();
+        const semesters = [...new Set(allExams.map(e => e.semester))].filter(Boolean).sort();
 
         
         const exams = await exam.find(filter)
