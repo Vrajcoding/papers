@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Profile</title>
-    <link rel="icon" href="/utils/icons/icon.jpg">
+    <link rel="icon" href="/icon.jpg">
     <link href="/css/style.css" rel="stylesheet" />
     <link rel="stylesheet" href="/css/cursor.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -84,7 +84,16 @@
       <section class="papers-container"></section>
     </main>
     <footer class="mt-10 text-center text-gray-500">
-      &copy; <%= new Date().getFullYear() %> 
+      <div class="footer-part">
+        <div class="icon">
+          <img src="/linkedin.png" alt="linkedin">
+          <img src="/github-mark.png" alt="github">
+          <img src="s/instagram.png" alt="insta">
+        </div>
+        <div class="copy">
+           &copy; <%= new Date().getFullYear() %> 
+          </div>
+      </div>
     </footer>
     <script src="/javascript/select.js"></script>
     <script src="/javascript/gsap.min.js"></script>
