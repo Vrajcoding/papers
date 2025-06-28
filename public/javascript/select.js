@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!response.ok) throw new Error('Failed to fetch exam papers');
             
             const html = await response.text();
-            container.classList.add("opacity-0", "transition-opacity", "duration-300");
+            container.classList.add("opacity-0", "transition-opacity", "duration-100");
             setTimeout(() => {
                 container.innerHTML = html;
                 container.classList.remove("opacity-0");

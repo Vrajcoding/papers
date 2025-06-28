@@ -1291,6 +1291,10 @@ video {
   transition-duration: 150ms;
 }
 
+.duration-100 {
+  transition-duration: 100ms;
+}
+
 .duration-300 {
   transition-duration: 300ms;
 }
